@@ -1,0 +1,45 @@
+{% extends "expenses/base.html" %}
+{% load filters %}
+{% block title %}Expenses{% endblock %}
+{% block body %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Година</th>
+                <th>Месец</th>
+                {% for expsense_type_name in expense_types_names %}
+                    <th>{{ expsense_type_name }}</th>
+                {% endfor %}
+                <th><b>Общо</b></th>
+                {% for user in users %}
+                    <th>
+                        {% if user.is_complete %}
+                            {{ user.first_name }}
+                            {{ user.last_name }}
+                        {% else %}
+                            {{ user.email }}
+                        {% endif %}
+                        {% if user.avatar %}
+                            <img class="small-profile-img" src="{{ user.avatar.url }}"  alt="profile image">
+                        {% endif %}
+                    </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for date, expences in expenses_by_month.items %}
+                <tr>
+                    <td>{{ date.1 }}</td>
+                    <td>{{ date.0 }}</td>
+                    {% for expence_value in expences.per_type.values %}
+                        <td>{{ expence_value }}</td>
+                    {% endfor %}
+                    <td><b>{{ expences.per_type.values|sum_list }}</b></td>
+                    {% for user in expences.per_user.values %}
+                        <td>{{ user }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
