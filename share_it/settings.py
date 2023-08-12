@@ -8,7 +8,8 @@ if os.path.isfile(dotenv_file):
     dotenv.load_dotenv(dotenv_file)
 SECRET_KEY = os.environ["SECRET_KEY"]
 DEBUG = False
-ALLOWED_HOSTS: list = ["*"]
+ALLOWED_HOSTS: list = ["127.0.0.1", "localhost", "http://113.30.150.39/"]
+CSRF_TRUSTED_ORIGINS = ["http://113.30.150.39"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -110,8 +111,6 @@ EMAIL_HOST_USER = os.environ["EMAIL_HOST_USER"]
 EMAIL_HOST_PASSWORD = os.environ["EMAIL_HOST_PASSWORD"]
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
 ADMINS = [(admin, admin) for admin in os.environ["ADMINS"].split("|")]
 SECURE_HSTS_SECONDS = 10
 SECURE_SSL_REDIRECT = False
