@@ -8,7 +8,7 @@ if os.path.isfile(dotenv_file):
     dotenv.load_dotenv(dotenv_file)
 SECRET_KEY = os.environ["SECRET_KEY"]
 DEBUG = False
-ALLOWED_HOSTS: list = ["127.0.0.1", "localhost", "http://113.30.150.39/"]
+ALLOWED_HOSTS: list = ["127.0.0.1", "localhost", "113.30.150.39"]
 CSRF_TRUSTED_ORIGINS = ["http://113.30.150.39"]
 
 INSTALLED_APPS = [
