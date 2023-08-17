@@ -17,8 +17,8 @@ UserModel = get_user_model()
 @app.task
 def archive_db_and_media() -> None:
     call_command("cleanup_unused_media", "--noinput")
-    call_command("mediabackup", "-e", "-z")
-    call_command("dbbackup", "-e", "-z")
+    call_command("mediabackup", "-e")
+    call_command("dbbackup", "-e")
 
 
 @app.task
