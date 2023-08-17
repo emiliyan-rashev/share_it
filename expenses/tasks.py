@@ -9,24 +9,31 @@ from expenses.models import Expense
 from expenses.utils import get_expenses_per_month
 from share_it.celery import app
 from django.core.mail import send_mail
+
 UserModel = get_user_model()
 
 
 # TODO: Move task
 @app.task
-def archive_db() -> None:
-    call_command("dbbackup", "-e")
+def archive_db_and_media() -> None:
+    call_command("cleanup_unused_media", "--noinput")
+    call_command("mediabackup", "-e", "-z")
+    call_command("dbbackup", "-e", "-z")
 
 
 @app.task
 def send_previous_month_report() -> None:
     recipient_list = list(UserModel.objects.values_list("email", flat=True))
     month_ago = datetime.now() - relativedelta(months=1)
-    expenses = Expense.objects.filter(
-        related_date__month=month_ago.month, related_date__year=month_ago.year
-    ).order_by("related_date").select_related(
-        "target",
-        "paid_by",
+    expenses = (
+        Expense.objects.filter(
+            related_date__month=month_ago.month, related_date__year=month_ago.year
+        )
+        .order_by("related_date")
+        .select_related(
+            "target",
+            "paid_by",
+        )
     )
     if not expenses:
         return

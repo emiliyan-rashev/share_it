@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_unused_media",
     "dbbackup",
     "expenses",
     "users",
@@ -33,14 +34,9 @@ DBBACKUP_STORAGE_OPTIONS = {
     "default_acl": "private",
 }
 
-# TODO - https://django-dbbackup.readthedocs.io/en/4.0.2/configuration.html
-#  DBBACKUP_FILENAME_TEMPLATE - Check S3 auto expire
 DBBACKUP_FILENAME_TEMPLATE = "db-{datetime}.{extension}"
 DBBACKUP_MEDIA_FILENAME_TEMPLATE = "media-{datetime}.{extension}"
 DBBACKUP_GPG_RECIPIENT = "E3CDBA13497576271FC4B0D349038C7BB0987947"
-
-# TODO - DBBACKUP_MEDIA_FILENAME_TEMPLATE from
-#  https://django-dbbackup.readthedocs.io/en/4.0.2/configuration.html
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

@@ -12,9 +12,9 @@ app.config_from_object("django.conf:settings", namespace="CELERY")
 app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
-    "archive-db": {
-        "task": "expenses.tasks.archive_db",
-        "schedule": crontab(hour="0", minute="0"),
+    "archive-db-and-media": {
+        "task": "expenses.tasks.archive_db_and_media",
+        "schedule": crontab(hour="0", minute="10"),
     },
     "send-previous-month-report": {
         "task": "expenses.tasks.send_previous_month_report",
