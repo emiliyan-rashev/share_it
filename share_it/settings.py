@@ -36,7 +36,8 @@ DBBACKUP_STORAGE_OPTIONS = {
 # TODO - https://django-dbbackup.readthedocs.io/en/4.0.2/configuration.html
 #  DBBACKUP_FILENAME_TEMPLATE - Check S3 auto expire
 DBBACKUP_FILENAME_TEMPLATE = "db-{datetime}.{extension}"
-DBBACKUP_GPG_RECIPIENT = "9D1CEC15522021504020BB58672F8B959FAFE99B"
+DBBACKUP_MEDIA_FILENAME_TEMPLATE = "media-{datetime}.{extension}"
+DBBACKUP_GPG_RECIPIENT = "E3CDBA13497576271FC4B0D349038C7BB0987947"
 
 # TODO - DBBACKUP_MEDIA_FILENAME_TEMPLATE from
 #  https://django-dbbackup.readthedocs.io/en/4.0.2/configuration.html
