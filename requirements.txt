@@ -16,6 +16,7 @@ django-storages==1.13.2
 django-stubs==4.2.3
 django-stubs-ext==4.2.2
 django-timezone-field==5.1
+django-unused-media==0.2.2
 gunicorn==21.2.0
 jmespath==1.0.1
 kombu==5.3.1
