@@ -2,7 +2,6 @@ from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 from django.contrib.auth import get_user_model
-from django.core.management import call_command
 from django.template.loader import render_to_string
 
 from expenses.models import Expense
@@ -11,14 +10,6 @@ from share_it.celery import app
 from django.core.mail import send_mail
 
 UserModel = get_user_model()
-
-
-# TODO: Move task
-@app.task
-def archive_db_and_media() -> None:
-    call_command("cleanup_unused_media", "--noinput")
-    call_command("mediabackup", "-e")
-    call_command("dbbackup", "-e")
 
 
 @app.task

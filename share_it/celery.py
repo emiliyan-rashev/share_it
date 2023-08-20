@@ -13,7 +13,7 @@ app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
     "archive-db-and-media": {
-        "task": "expenses.tasks.archive_db_and_media",
+        "task": "utils.tasks.archive_db_and_media",
         "schedule": crontab(hour="0", minute="10"),
     },
     "send-previous-month-report": {
