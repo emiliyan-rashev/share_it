@@ -20,7 +20,7 @@
                             {{ user.email }}
                         {% endif %}
                         {% if user.avatar %}
-                            <img class="small-profile-img" src="{% url "utils:private-media" user.avatar.name %}" alt="profile image">
+                            <img class="small-profile-img" src="{{ user.avatar.url }}" alt="profile image">
                         {% endif %}
                     </th>
                 {% endfor %}
