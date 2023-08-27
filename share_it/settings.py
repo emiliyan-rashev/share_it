@@ -8,7 +8,7 @@ if os.path.isfile(dotenv_file):
     dotenv.load_dotenv(dotenv_file)
 SECRET_KEY = os.environ["SECRET_KEY"]
 DEBUG = False
-ALLOWED_HOSTS: list = ["127.0.0.1", "localhost", "113.30.150.39"]
+ALLOWED_HOSTS: list = ["127.0.0.1", "localhost", "113.30.150.39", "emiliyan-rashev.com"]
 CSRF_TRUSTED_ORIGINS = ["http://113.30.150.39"]
 
 INSTALLED_APPS = [
@@ -19,7 +19,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_unused_media",
-    "django_sendfile",
     "dbbackup",
     "expenses",
     "users",
@@ -105,10 +104,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 MEDIA_FOLDER_NAME = "media"
 MEDIA_URL = f"{MEDIA_FOLDER_NAME}/"
 MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_FOLDER_NAME)
-SENDFILE_BACKEND = "django_sendfile.backends.nginx"
-SENDFILE_FOLDER_NAME = "profile_images"
-SENDFILE_ROOT = os.path.join(MEDIA_ROOT, SENDFILE_FOLDER_NAME)
-SENDFILE_URL = f"/{SENDFILE_FOLDER_NAME}"
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = os.environ["EMAIL_HOST"]
 EMAIL_HOST_USER = os.environ["EMAIL_HOST_USER"]

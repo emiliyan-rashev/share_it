@@ -12,7 +12,6 @@ click-repl==0.3.0
 cron-descriptor==1.4.0
 Django==4.2.2
 django-dbbackup==4.0.2
-django-sendfile2==0.7.0
 django-storages==1.13.2
 django-stubs==4.2.3
 django-stubs-ext==4.2.2
