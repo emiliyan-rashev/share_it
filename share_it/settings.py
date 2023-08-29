@@ -8,7 +8,13 @@ if os.path.isfile(dotenv_file):
     dotenv.load_dotenv(dotenv_file)
 SECRET_KEY = os.environ["SECRET_KEY"]
 DEBUG = False
-ALLOWED_HOSTS: list = ["127.0.0.1", "localhost", "3.79.80.141", "emiliyan-rashev.com"]
+ALLOWED_HOSTS: list = [
+    "127.0.0.1",
+    "localhost",
+    "3.79.80.141",
+    "emiliyan-rashev.com",
+    "www.emiliyan-rashev.com",
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
