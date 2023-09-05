@@ -36,7 +36,7 @@ DBBACKUP_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 DBBACKUP_STORAGE_OPTIONS = {
     "access_key": os.environ["DB_BACKUP_ACCESS_KEY"],
     "secret_key": os.environ["DB_BACKUP_SECRET_KEY"],
-    "bucket_name": "share-it-backups",
+    "bucket_name": os.environ["DB_BUCKET_NAME"],
     "default_acl": "private",
 }
 
