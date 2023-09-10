@@ -1,0 +1,30 @@
+{% extends "expenses/base.html" %}
+{% load filters %}
+{% block title %}Expenses{% endblock %}
+{% block body %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <td>Дата</td>
+                <td>Сума</td>
+                <td>От</td>
+                <td>За</td>
+                <td>Коментар</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for expense in object_list %}
+                <tr>
+                    <td>{{ expense.related_date|date:"d/m/Y" }}</td>
+                    <td>{{ expense.value }}</td>
+                    <td>
+                        {{ expense.paid_by.first_name }}
+                        {{ expense.paid_by.last_name }}
+                    </td>
+                    <td>{{ expense.target.name }}</td>
+                    <td>{{ expense.comment }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(114, 141, 186);
+    background-color: rgb(33,37,41);
     font-family: monospace;
 }
 
@@ -10,4 +10,9 @@ body {
 
 .table tr th {
     vertical-align: middle;
+}
+
+.navbar {
+    background-color: white;
+    padding: 5px;
 }

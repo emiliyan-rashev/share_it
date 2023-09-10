@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 import dotenv
+from django.urls import reverse_lazy
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 dotenv_file = os.path.join(BASE_DIR, ".env")
@@ -119,3 +120,4 @@ ADMINS = [(admin, admin) for admin in os.environ["ADMINS"].split("|")]
 SECURE_HSTS_SECONDS = 10
 SECURE_SSL_REDIRECT = False
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+LOGIN_URL = reverse_lazy("admin:login")

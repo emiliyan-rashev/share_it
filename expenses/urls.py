@@ -1,7 +1,10 @@
 from django.urls import path
 
-from expenses.views import ListExpensesByMonth
+from expenses.views import ListExpensesByMonth, DetailsPerMonth
 
 app_name = "expenses"
 
-urlpatterns = [path("all", ListExpensesByMonth.as_view(), name="list")]
+urlpatterns = [
+    path("all", ListExpensesByMonth.as_view(), name="list"),
+    path("<int:month>/<int:year>/details", DetailsPerMonth.as_view(), name="details")
+]

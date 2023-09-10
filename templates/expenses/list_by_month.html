@@ -1,14 +1,14 @@
 {% extends "expenses/base.html" %}
 {% load filters %}
-{% block title %}Expenses{% endblock %}
+{% block title %}Разходи по месеци{% endblock %}
 {% block body %}
     <table class="table table-hover">
         <thead>
             <tr>
                 <th>Година</th>
                 <th>Месец</th>
-                {% for expsense_type_name in expense_types_names %}
-                    <th>{{ expsense_type_name }}</th>
+                {% for expense_type_name in expense_types_names %}
+                    <th>{{ expense_type_name }}</th>
                 {% endfor %}
                 <th><b>Общо</b></th>
                 {% for user in users %}
@@ -27,19 +27,28 @@
             </tr>
         </thead>
         <tbody>
-            {% for date, expences in expenses_by_month.items %}
+            {% for date, expenses in expenses_by_month.items %}
                 <tr>
                     <td>{{ date.1 }}</td>
-                    <td>{{ date.0 }}</td>
-                    {% for expence_value in expences.per_type.values %}
-                        <td>{{ expence_value }}</td>
+                    <td>
+                        {{ date.0 }}
+
+                    </td>
+                    {% for expense_value in expenses.per_type.values %}
+                        <td>{{ expense_value }}</td>
                     {% endfor %}
-                    <td><b>{{ expences.per_type.values|sum_list }}</b></td>
-                    {% for user in expences.per_user.values %}
+                    <td>
+                        <b>{{ expenses.per_type.values|sum_list }}</b>
+                        <a href="{% url "expenses:details" date.0 date.1 %}">
+                            <span id="boot-icon" class="bi bi-eye"></span>
+                        </a>
+                    </td>
+                    {% for user in expenses.per_user.values %}
                         <td>{{ user }}</td>
                     {% endfor %}
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+
 {% endblock %}
