@@ -20,4 +20,4 @@ class DetailsPerMonth(LoginRequiredMixin, ListView):
         return Expense.objects.filter(
             related_date__month=self.kwargs["month"],
             related_date__year=self.kwargs["year"],
-        )
+        ).order_by("related_date")
