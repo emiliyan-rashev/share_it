@@ -20,12 +20,7 @@ class Expense(models.Model):
     related_date = models.DateField(help_text="Date that the expense is accounted to.")
     value = models.DecimalField(max_digits=6, decimal_places=2)
     target = models.ForeignKey(to=ExpenseType, on_delete=models.PROTECT)
-    paid_by = models.ForeignKey(
-        to=settings.AUTH_USER_MODEL,
-        on_delete=models.PROTECT,
-        null=True,
-        blank=True,
-    )
+    paid_by = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     comment = models.TextField(
         max_length=200,
         null=True,
