@@ -9,7 +9,7 @@ body {
 }
 
 .table tr th {
-    vertical-align: middle;
+    vertical-align: top;
 }
 
 .navbar {
