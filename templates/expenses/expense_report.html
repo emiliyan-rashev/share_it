@@ -3,24 +3,24 @@
 <table style="width: 100%; border-spacing: 0; border-collapse: collapse;">
     <thead>
         <tr>
-            <th style="border: 1px solid black;">Дата</th>
-            <th style="border: 1px solid black;">Сума</th>
-            <th style="border: 1px solid black;">От</th>
-            <th style="border: 1px solid black;">За</th>
-            <th style="border: 1px solid black;">Коментар</th>
+            <th style="border: 1px solid black; padding: 3px; vertical-align: top;">Дата</th>
+            <th style="border: 1px solid black; padding: 3px; vertical-align: top;">Сума</th>
+            <th style="border: 1px solid black; padding: 3px; vertical-align: top;">От</th>
+            <th style="border: 1px solid black; padding: 3px; vertical-align: top;">За</th>
+            <th style="border: 1px solid black; padding: 3px; vertical-align: top;">Коментар</th>
         </tr>
     </thead>
     <tbody>
         {% for expense in expenses %}
             <tr>
-                <td style="border: 1px solid black;">{{ expense.related_date|date:"d/m/Y" }}</td>
-                <td style="border: 1px solid black;">{{ expense.value }}</td>
-                <td style="border: 1px solid black;">
+                <td style="border: 1px solid black; padding: 3px; vertical-align: top;">{{ expense.related_date|date:"d/m/Y" }}</td>
+                <td style="border: 1px solid black; padding: 3px; vertical-align: top;">{{ expense.value }}</td>
+                <td style="border: 1px solid black; padding: 3px; vertical-align: top;">
                     {{ expense.paid_by.first_name }}
                     {{ expense.paid_by.last_name }}
                 </td>
-                <td style="border: 1px solid black;">{{ expense.target.name }}</td>
-                <td style="border: 1px solid black;">{{ expense.comment }}</td>
+                <td style="border: 1px solid black; padding: 3px; vertical-align: top;">{{ expense.target.name }}</td>
+                <td style="border: 1px solid black; padding: 3px; vertical-align: top;">{{ expense.comment }}</td>
             </tr>
         {% endfor %}
     </tbody>
@@ -30,14 +30,14 @@
 <table style="width: 100%; border-spacing: 0; border-collapse: collapse;">
     <thead>
         <tr>
-            <th style="border: 1px solid black;">Година</th>
-            <th style="border: 1px solid black;">Месец</th>
+            <th style="border: 1px solid black; padding: 3px; vertical-align: top;">Година</th>
+            <th style="border: 1px solid black; padding: 3px; vertical-align: top;">Месец</th>
             {% for expense_type in expense_types_names %}
-                <th style="border: 1px solid black;">{{ expense_type }}</th>
+                <th style="border: 1px solid black; padding: 3px; vertical-align: top;">{{ expense_type }}</th>
             {% endfor %}
-            <th style="border: 1px solid black;"><b>Общо</b></th>
+            <th style="border: 1px solid black; padding: 3px; vertical-align: top;"><b>Общо</b></th>
             {% for user in users %}
-                <th style="border: 1px solid black;">
+                <th style="border: 1px solid black; padding: 3px; vertical-align: top;">
                     {{ user.first_name }}
                     {{ user.last_name }}
                 </th>
@@ -47,16 +47,25 @@
     <tbody>
         {% for date, expenses in expenses_by_month.items %}
             <tr>
-                <td style="border: 1px solid black;">{{ date.1 }}</td>
-                <td style="border: 1px solid black;">{{ date.0 }}</td>
+                <td style="border: 1px solid black; padding: 3px; vertical-align: top;">{{ date.1 }}</td>
+                <td style="border: 1px solid black; padding: 3px; vertical-align: top;">{{ date.0 }}</td>
                 {% for expense_value in expenses.per_type.values %}
-                    <td style="border: 1px solid black;">{{ expense_value }}</td>
+                    <td style="border: 1px solid black; padding: 3px; vertical-align: top;">{{ expense_value }}</td>
                 {% endfor %}
-                <td style="border: 1px solid black;"><b>{{ expenses.per_type.values|sum_list }}</b></td>
-                {% for user in expenses.per_user.values %}
-                    <td style="border: 1px solid black;">{{ user }}</td>
+                <td style="border: 1px solid black; padding: 3px; vertical-align: top;"><b>{{ expenses.total }}</b></td>
+                {% for user_data in expenses.per_user.values %}
+                    <td style="border: 1px solid black; padding: 3px; vertical-align: top;">
+                        {{ user_data.paid }}
+                    </td>
                 {% endfor %}
             </tr>
         {% endfor %}
     </tbody>
 </table>
+{% for expenses in expenses_by_month.values %}
+    {% for user, user_data in expenses.per_user.items %}
+        {% if user_data.owes %}
+            {{ user.first_name }} {{ user.last_name }} дължи {{ user_data.owes|floatformat:2 }}
+        {% endif %}
+    {% endfor %}
+{% endfor %}
