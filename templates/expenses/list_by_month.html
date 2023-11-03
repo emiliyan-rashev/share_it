@@ -38,13 +38,18 @@
                         <td>{{ expense_value }}</td>
                     {% endfor %}
                     <td>
-                        <b>{{ expenses.per_type.values|sum_list }}</b>
+                        <b>{{ expenses.total }}</b>
                         <a href="{% url "expenses:details" date.0 date.1 %}">
                             <span id="boot-icon" class="bi bi-eye"></span>
                         </a>
                     </td>
-                    {% for user in expenses.per_user.values %}
-                        <td>{{ user }}</td>
+                    {% for user_data in expenses.per_user.values %}
+                        <td>
+                            {{ user_data.paid }}
+                            {% if user_data.owes %}
+                                <span style="color: red;">(*{{ user_data.owes|floatformat:2 }})</span>
+                            {% endif %}
+                        </td>
                     {% endfor %}
                 </tr>
             {% endfor %}

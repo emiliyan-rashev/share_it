@@ -1,4 +1,5 @@
 from datetime import datetime
+from decimal import Decimal
 
 from dateutil.relativedelta import relativedelta
 from django.contrib.auth import get_user_model
@@ -50,8 +51,15 @@ class GetExpensesPerMonthTest(TestCase):
             result["expenses_by_month"],
             {
                 (month_ago.month, month_ago.year): {
-                    "per_type": {expense_type_1.name: 3, expense_type_2.name: 7},
-                    "per_user": {user_1.id: 4, user_2.id: 6},
+                    "per_type": {
+                        expense_type_1.name: Decimal(3),
+                        expense_type_2.name: Decimal(7),
+                    },
+                    "total": Decimal(10),
+                    "per_user": {
+                        user_1: {"paid": Decimal(4), "owes": Decimal(1)},
+                        user_2: {"paid": Decimal(6), "owes": Decimal(0)},
+                    },
                 }
             },
         )
