@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_unused_media",
     "dbbackup",
+    "events",
     "expenses",
     "users",
     "utils",

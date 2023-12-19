@@ -15,6 +15,7 @@ class ListExpensesByMonth(LoginRequiredMixin, ListView):
 
 class DetailsPerMonth(LoginRequiredMixin, ListView):
     template_name = "expenses/details_per_month.html"
+    extra_context = {"should_display_main_type": True}
 
     def get_queryset(self):
         return Expense.objects.filter(
