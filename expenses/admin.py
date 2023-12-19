@@ -4,9 +4,9 @@ from expenses.models import ExpenseType, Expense
 
 
 class ExpenseTypeAdmin(admin.ModelAdmin):
-    list_display = ["name", "position"]
+    list_display = ["__str__", "position"]
     search_fields = ["name"]
-    ordering = ["-position"]
+    ordering = ["parent", "-position"]
 
 
 class ExpenseAdmin(admin.ModelAdmin):

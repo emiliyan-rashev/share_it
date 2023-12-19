@@ -1,0 +1,63 @@
+{% extends "expenses/base.html" %}
+{% load filters %}
+{% block title %}Разходи за събития{% endblock %}
+{% block body %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Събитие</th>
+                <th>От</th>
+                <th>До</th>
+                {% for expense_type_name in expense_types_names %}
+                    <th>{{ expense_type_name }}</th>
+                {% endfor %}
+                <th><b>Общо</b></th>
+                <th>Продължителност</th>
+                <th>Отпуск</th>
+                {% for user in users %}
+                    <th>
+                        {% if user.is_complete %}
+                            {{ user.first_name }}
+                            {{ user.last_name }}
+                        {% else %}
+                            {{ user.email }}
+                        {% endif %}
+                        {% if user.avatar %}
+                            <img class="small-profile-img" src="{{ user.avatar.url }}" alt="profile image">
+                        {% endif %}
+                    </th>
+                {% endfor %}
+            
+            </tr>
+        </thead>
+        <tbody>
+            {% for event, expenses in events.items %}
+                <tr>
+                    <td>{{ event.name }}</td>
+                    <td>{{ event.start_date|date:"d/m/Y" }}</td>
+                    <td>{{ event.end_date|date:"d/m/Y" }}</td>
+                    {% for expense_value in expenses.per_type.values %}
+                        <td>{{ expense_value }}</td>
+                    {% endfor %}
+                    <td>
+                        <b>{{ event.total }}</b>
+                        <a href="{% url "events:details" event.id %}">
+                            <span id="boot-icon" class="bi bi-eye"></span>
+                        </a>
+                    </td>
+                    <td>
+                        {% if event.duration %}
+                            {{ event.duration }}
+                        {% endif %}
+                    </td>
+                    <td>{{ event.leave }}</td>
+                    {% for user_data in expenses.per_user.values %}
+                        <td>
+                            {{ user_data }}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

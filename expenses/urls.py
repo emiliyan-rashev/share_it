@@ -6,5 +6,5 @@ app_name = "expenses"
 
 urlpatterns = [
     path("all", ListExpensesByMonth.as_view(), name="list"),
-    path("<int:month>/<int:year>/details", DetailsPerMonth.as_view(), name="details")
+    path("<int:month>/<int:year>/details", DetailsPerMonth.as_view(), name="details"),
 ]

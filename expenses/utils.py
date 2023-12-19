@@ -1,5 +1,5 @@
 from decimal import Decimal
-from typing import TypedDict, Tuple, Type
+from typing import TypedDict, Tuple
 
 from django.contrib.auth import get_user_model
 from django.db.models import QuerySet
@@ -30,7 +30,9 @@ class ExpensesPerMonthData(TypedDict):
 def get_expenses_per_month(expenses: QuerySet[Expense]) -> ExpensesPerMonthData:
     expenses_by_month: dict[Tuple[int, int], ExpensesByMonth] = {}
     expense_types_names = list(
-        ExpenseType.objects.values_list("name", flat=True).order_by("position")
+        ExpenseType.objects.filter(parent__isnull=True)
+        .values_list("name", flat=True)
+        .order_by("position")
     )
     users = set(UserModel.objects.all())
     for expense in expenses.select_related("target", "paid_by").order_by(
@@ -43,11 +45,14 @@ def get_expenses_per_month(expenses: QuerySet[Expense]) -> ExpensesPerMonthData:
                 "per_type": {
                     expense_name: Decimal(0) for expense_name in expense_types_names
                 },
-                "per_user": {user: {"paid": Decimal(0), "owes": Decimal(0)} for user in users},
+                "per_user": {
+                    user: {"paid": Decimal(0), "owes": Decimal(0)} for user in users
+                },
                 "total": Decimal(0),
             },
         )
-        expenses_by_month[date]["per_type"][expense.target.name] += expense.value
+        name = expense.target.get_main_type()
+        expenses_by_month[date]["per_type"][name] += expense.value
         expenses_by_month[date]["per_user"][expense.paid_by]["paid"] += expense.value
     for month_data in expenses_by_month.values():
         total = sum(month_data["per_type"].values())

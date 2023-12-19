@@ -1,6 +1,6 @@
 {% extends "expenses/base.html" %}
 {% load filters %}
-{% block title %}Expenses{% endblock %}
+{% block title %}Детайли{% endblock %}
 {% block body %}
     <table class="table table-hover">
         <thead>
@@ -21,7 +21,13 @@
                         {{ expense.paid_by.first_name }}
                         {{ expense.paid_by.last_name }}
                     </td>
-                    <td>{{ expense.target.name }}</td>
+                    <td>
+                        {% if should_display_main_type %}    
+                            {{ expense.target.get_main_type }}
+                        {% else %}
+                            {{ expense.target.name }}
+                        {% endif %}
+                    </td>
                     <td>{{ expense.comment }}</td>
                 </tr>
             {% endfor %}
