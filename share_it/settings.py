@@ -12,7 +12,7 @@ DEBUG = False
 ALLOWED_HOSTS: list = [
     "127.0.0.1",
     "localhost",
-    "3.79.80.141",
+    "54.93.85.205",
     "emiliyan-rashev.com",
     "www.emiliyan-rashev.com",
 ]
