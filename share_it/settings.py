@@ -122,3 +122,4 @@ SECURE_HSTS_SECONDS = 10
 SECURE_SSL_REDIRECT = False
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 LOGIN_URL = reverse_lazy("admin:login")
+CSRF_TRUSTED_ORIGINS = ["https://emiliyan-rashev.com/"]
