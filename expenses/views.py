@@ -10,7 +10,10 @@ class ListExpensesByMonth(LoginRequiredMixin, ListView):
     model = Expense
 
     def get_context_data(self, *, object_list=None, **kwargs):  # type: ignore
-        return get_expenses_per_month(Expense.objects.all())
+        queryset = Expense.objects.all()
+        if year := self.kwargs.get("year"):
+            queryset = queryset.filter(related_date__year=year)
+        return get_expenses_per_month(queryset)
 
 
 class DetailsPerMonth(LoginRequiredMixin, ListView):

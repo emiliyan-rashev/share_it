@@ -1,10 +1,10 @@
 from decimal import Decimal
-from typing import TypedDict
+from typing import TypedDict, Optional
 
 from django.contrib.auth import get_user_model
 from django.db.models import QuerySet, Sum
 
-from events.models import Event
+from events.models import Event, EventExpense
 from expenses.models import ExpenseType
 from users.models import User
 
@@ -20,6 +20,7 @@ class EventData(TypedDict):
     expense_types_names: list
     events: dict[Event, EventExpenses]
     users: set
+    years: Optional[list[int]]
 
 
 def get_events_expenses(events: QuerySet[Event]) -> EventData:
@@ -49,4 +50,9 @@ def get_events_expenses(events: QuerySet[Event]) -> EventData:
         "expense_types_names": expense_types_names,
         "users": users,
         "events": events_data,
+        "years": list(
+            Event.objects.all()
+            .distinct("start_date__year")
+            .values_list("start_date__year", flat=True)
+        )
     }

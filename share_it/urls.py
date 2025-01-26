@@ -7,7 +7,11 @@ from django.views.generic import RedirectView
 
 urlpatterns = [
     path("admin/", admin.site.urls, name="admin"),
-    path("", RedirectView.as_view(url=reverse_lazy("expenses:list")), name="home"),
+    path(
+        "",
+        RedirectView.as_view(url=reverse_lazy('expenses:by-year', kwargs={'year': 2025})),
+        name="home",
+    ),
     path("expenses/", include("expenses.urls", namespace="expenses")),
     path("events/", include("events.urls", namespace="events")),
     path("utils/", include("utils.urls", namespace="utils")),

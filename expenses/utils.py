@@ -1,5 +1,5 @@
 from decimal import Decimal
-from typing import TypedDict, Tuple
+from typing import TypedDict, Tuple, Optional
 
 from django.contrib.auth import get_user_model
 from django.db.models import QuerySet
@@ -25,6 +25,7 @@ class ExpensesPerMonthData(TypedDict):
     expense_types_names: list
     expenses_by_month: dict[Tuple[int, int], ExpensesByMonth]
     users: set
+    years: Optional[list[int]]
 
 
 def get_expenses_per_month(expenses: QuerySet[Expense]) -> ExpensesPerMonthData:
@@ -66,4 +67,9 @@ def get_expenses_per_month(expenses: QuerySet[Expense]) -> ExpensesPerMonthData:
         "expense_types_names": expense_types_names,
         "expenses_by_month": expenses_by_month,
         "users": users,
+        "years": list(
+            Expense.objects.all()
+            .distinct("related_date__year")
+            .values_list("related_date__year", flat=True)
+        ),
     }
