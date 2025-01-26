@@ -10,7 +10,7 @@ class ListEvents(LoginRequiredMixin, ListView):
     model = Event
 
     def get_context_data(self, *, object_list=None, **kwargs):  # type: ignore
-        return get_events_expenses(
+        queryset = (
             Event.objects.all()
             .prefetch_related(
                 "eventexpense_set__expense",
@@ -19,6 +19,9 @@ class ListEvents(LoginRequiredMixin, ListView):
             )
             .order_by("start_date")
         )
+        if year := self.kwargs.get("year"):
+            queryset = queryset.filter(start_date__year=year)
+        return get_events_expenses(queryset)
 
 
 class Details(LoginRequiredMixin, ListView):

@@ -2,6 +2,20 @@
 {% load filters %}
 {% block title %}Разходи за събития{% endblock %}
 {% block body %}
+    {% if years %}
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url "events:list" %}">Всички</a>
+                </li>
+                {% for year in years %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url "events:by-year" year %}">{{ year }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    {% endif %}
     <table class="table table-hover">
         <thead>
             <tr>
