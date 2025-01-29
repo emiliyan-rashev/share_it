@@ -36,19 +36,13 @@ def get_expenses_per_month(expenses: QuerySet[Expense]) -> ExpensesPerMonthData:
         .order_by("position")
     )
     users = set(UserModel.objects.all())
-    for expense in expenses.select_related("target", "paid_by").order_by(
-        "related_date"
-    ):
+    for expense in expenses.select_related("target", "paid_by").order_by("related_date"):
         date = (expense.related_date.month, expense.related_date.year)
         expenses_by_month.setdefault(
             date,
             {
-                "per_type": {
-                    expense_name: Decimal(0) for expense_name in expense_types_names
-                },
-                "per_user": {
-                    user: {"paid": Decimal(0), "owes": Decimal(0)} for user in users
-                },
+                "per_type": {expense_name: Decimal(0) for expense_name in expense_types_names},
+                "per_user": {user: {"paid": Decimal(0), "owes": Decimal(0)} for user in users},
                 "total": Decimal(0),
             },
         )

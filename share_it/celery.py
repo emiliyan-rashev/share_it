@@ -22,6 +22,6 @@ app.conf.beat_schedule = {
     },
     "alert-superdoc-new-hours": {
         "task": "utils.tasks.superdoc_notify",
-        "schedule": crontab(minute='*/5'),
-    }
+        "schedule": crontab(minute="*/5"),
+    },
 }

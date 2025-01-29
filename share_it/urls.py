@@ -8,7 +8,7 @@ urlpatterns = [
     path("admin/", admin.site.urls, name="admin"),
     path(
         "",
-        RedirectView.as_view(url=reverse_lazy('expenses:by-year', kwargs={'year': 2025})),
+        RedirectView.as_view(url=reverse_lazy("expenses:by-year", kwargs={"year": 2025})),
         name="home",
     ),
     path("expenses/", include("expenses.urls", namespace="expenses")),

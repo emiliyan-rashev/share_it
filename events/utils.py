@@ -34,9 +34,7 @@ def get_events_expenses(events: QuerySet[Event]) -> EventData:
     events_data: dict[Event, EventExpenses] = {}
     for event in events.annotate(total=Sum("eventexpense__expense__value")):
         events_data[event] = {
-            "per_type": {
-                expense_name: Decimal(0) for expense_name in expense_types_names
-            },
+            "per_type": {expense_name: Decimal(0) for expense_name in expense_types_names},
             "per_user": {user: Decimal(0) for user in users},
         }
         for event_expense in event.eventexpense_set.all():
@@ -54,5 +52,5 @@ def get_events_expenses(events: QuerySet[Event]) -> EventData:
             Event.objects.all()
             .distinct("start_date__year")
             .values_list("start_date__year", flat=True)
-        )
+        ),
     }

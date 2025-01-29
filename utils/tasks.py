@@ -25,5 +25,5 @@ def superdoc_notify(days: int = 30) -> None:
             subject="Свободни часове за лекар",
             message="\n".join(slots),
             from_email=None,
-            recipient_list=['emiliyan.rashev@gmail.com'],
+            recipient_list=["emiliyan.rashev@gmail.com"],
         )
