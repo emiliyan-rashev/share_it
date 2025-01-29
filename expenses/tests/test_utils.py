@@ -43,9 +43,7 @@ class GetExpensesPerMonthTest(TestCase):
             paid_by=user_2,
         )
         result = get_expenses_per_month(Expense.objects.all())
-        self.assertEqual(
-            result["expense_types_names"], [expense_type_1.name, expense_type_2.name]
-        )
+        self.assertEqual(result["expense_types_names"], [expense_type_1.name, expense_type_2.name])
         self.assertSetEqual(result["users"], {user_1, user_2})
         self.assertDictEqual(
             result["expenses_by_month"],

@@ -28,8 +28,6 @@ class Details(LoginRequiredMixin, ListView):
     template_name = "events/details.html"
 
     def get_queryset(self):
-        return Expense.objects.filter(
-            eventexpense__event_id=self.kwargs["pk"]
-        ).order_by(
+        return Expense.objects.filter(eventexpense__event_id=self.kwargs["pk"]).order_by(
             "related_date",
         )
