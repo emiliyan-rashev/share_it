@@ -4,7 +4,7 @@ from typing import TypedDict, Optional
 from django.contrib.auth import get_user_model
 from django.db.models import QuerySet, Sum
 
-from events.models import Event, EventExpense
+from events.models import Event
 from expenses.models import ExpenseType
 from users.models import User
 

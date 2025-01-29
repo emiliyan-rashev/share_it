@@ -22,7 +22,7 @@ def superdoc_notify(days: int = 30) -> None:
                 slots.append(f'{day["date"]} {slot["time"]}')
     if slots:
         send_mail(
-            subject=f"Свободни часове за лекар",
+            subject="Свободни часове за лекар",
             message="\n".join(slots),
             from_email=None,
             recipient_list=['emiliyan.rashev@gmail.com'],
