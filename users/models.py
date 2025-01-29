@@ -3,7 +3,7 @@ from typing import Any
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.hashers import make_password
 from django.db import models
-from django.contrib.auth.models import AbstractUser, PermissionsMixin, User as BaseUser
+from django.contrib.auth.models import PermissionsMixin, User as BaseUser
 
 
 class CustomUserManager(BaseUserManager):
