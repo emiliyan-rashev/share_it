@@ -20,8 +20,4 @@ app.conf.beat_schedule = {
         "task": "expenses.tasks.send_previous_month_report",
         "schedule": crontab(hour="0", minute="0", day_of_month="1"),
     },
-    "alert-superdoc-new-hours": {
-        "task": "utils.tasks.superdoc_notify",
-        "schedule": crontab(minute="*/5"),
-    },
 }
