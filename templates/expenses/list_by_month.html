@@ -27,12 +27,14 @@
                 <th><b>Общо</b></th>
                 {% for user in users %}
                     <th>
-                        {% if user.is_complete %}
-                            {{ user.first_name }}
-                            {{ user.last_name }}
-                        {% else %}
-                            {{ user.email }}
-                        {% endif %}
+                        <a href="{{ user.payment_url }}" target="_blank">
+                            {% if user.is_complete %}
+                                {{ user.first_name }}
+                                {{ user.last_name }}
+                            {% else %}
+                                {{ user.email }}
+                            {% endif %}
+                        </a>
                         {% if user.avatar %}
                             <img class="small-profile-img" src="{{ user.avatar.url }}" alt="profile image">
                         {% endif %}
