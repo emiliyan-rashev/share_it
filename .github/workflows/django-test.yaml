@@ -53,6 +53,6 @@ jobs:
           DB_USER: ${{ env.POSTGRES_USER }}
           DB_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
           DB_NAME: ${{ env.POSTGRES_DB }}
-          DB_HOST: localhost
+          DB_HOST: postgres
         run: |
             python manage.py test
