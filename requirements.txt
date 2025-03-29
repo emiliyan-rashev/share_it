@@ -23,7 +23,7 @@ django-timezone-field==5.1
 django-unused-media==0.2.2
 filelock==3.17.0
 flake8==7.1.1
-gunicorn==22.0.0
+gunicorn==23.0.0
 identify==2.6.6
 idna==3.10
 jmespath==1.0.1
