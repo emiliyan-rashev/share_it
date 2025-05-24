@@ -3,12 +3,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, reverse_lazy
 from django.views.generic import RedirectView
+from datetime import datetime
 
 urlpatterns = [
     path("admin/", admin.site.urls, name="admin"),
     path(
         "",
-        RedirectView.as_view(url=reverse_lazy("expenses:by-year", kwargs={"year": 2025})),
+        RedirectView.as_view(url=reverse_lazy("expenses:by-year", kwargs={"year": datetime.now().year})),
         name="home",
     ),
     path("expenses/", include("expenses.urls", namespace="expenses")),
